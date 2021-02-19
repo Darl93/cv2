@@ -1,5 +1,3 @@
-
-
 //ПРИМЕР ТОГО, КАК ДОБАВИТЬ ТЕКСТ В КОНЕЦ ЭЛЕМЕНТА main
 // sections.forEach(section => {
 //     let html = '<h2>Hello from JS</h2>';
