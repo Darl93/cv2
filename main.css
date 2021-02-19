@@ -20,7 +20,7 @@ body {
 #cv {
     margin-left: 300px;
 }
-
+/* 
 @media (max-width: 1199px) {
     #header {
         left: -300px;
@@ -28,8 +28,7 @@ body {
     #cv {
         margin-left: 0;
     }
-}
-
+} */
 
 
 
@@ -71,4 +70,4 @@ body {
 
 .nav-menu a:hover i, .nav-menu .active i, .nav-menu li:hover > a i {
     color: #149ddd;
-} 
+}
