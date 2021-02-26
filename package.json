@@ -12,10 +12,13 @@
     "url": "git+https://github.com/Darl93/cv2.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Darya Lyskavets <dashaapril93@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Darl93/cv2/issues"
   },
-  "homepage": "https://github.com/Darl93/cv2#readme"
+  "homepage": "https://github.com/Darl93/cv2#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
 }
