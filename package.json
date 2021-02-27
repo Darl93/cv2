@@ -1,24 +1,26 @@
 {
-  "name": "cv2",
+  "name": "cv",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "<!-- **Darl93/Darl93** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.",
+  "main": "src/index.js",
   "scripts": {
     "dev": "parcel ./src/index.html",
     "build": "parcel build ./src/index.html"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Darl93/cv2.git"
+    "url": "git+https://github.com/maslakoff/maslakoff.git"
   },
-  "keywords": [],
-  "author": "Darya Lyskavets <dashaapril93@gmail.com>",
-  "license": "ISC",
+  "author": "Darl <dashaapril93@gmail.com",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Darl93/cv2/issues"
+    "url": "https://github.com/maslakoff/maslakoff/issues"
   },
-  "homepage": "https://github.com/Darl93/cv2#readme",
+  "homepage": "https://github.com/maslakoff/maslakoff#readme",
   "devDependencies": {
     "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "model": "^6.0.1"
   }
 }

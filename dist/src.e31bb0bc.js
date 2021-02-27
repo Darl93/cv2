@@ -117,54 +117,227 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"index.js":[function(require,module,exports) {
-//ПРИМЕР ТОГО, КАК ДОБАВИТЬ ТЕКСТ В КОНЕЦ ЭЛЕМЕНТА main
-// sections.forEach(section => {
-//     let html = '<h2>Hello from JS</h2>';
-//     $content.insertAdjacentHTML('beforeend', html)
-// })
-var loremText = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia excepturi commodi impedit, possimus nulla vitae et ex. Quam nisi minima cum natus rem esse voluptatum laborum eveniet sequi. Quo, quibusdam.';
-var sections = [{
-  type: 'title',
-  value: 'Hello world!'
-}, {
-  type: 'text',
-  value: loremText
-}, {
-  type: 'columns',
-  value: [loremText, loremText, loremText]
-}];
-var $content = document.querySelector('#cv');
-sections.forEach(function (section) {
-  var html = '';
+})({"classes/blocks.js":[function(require,module,exports) {
+"use strict";
 
-  if (section.type === 'title') {
-    html = title(section);
-  } else if (section.type === 'text') {
-    html = text(section);
-  } else if (section.type === 'columns') {
-    html = columns(section);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TextBlock = exports.TitleBlock = exports.Block = void 0;
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Block = function Block(type, value, options) {
+  _classCallCheck(this, Block);
+
+  this.type = type;
+  this.value = value;
+  this.options = options;
+};
+
+exports.Block = Block;
+
+var TitleBlock = /*#__PURE__*/function (_Block) {
+  _inherits(TitleBlock, _Block);
+
+  var _super = _createSuper(TitleBlock);
+
+  function TitleBlock(value, options) {
+    _classCallCheck(this, TitleBlock);
+
+    return _super.call(this, 'title', value, options);
   }
 
-  $content.insertAdjacentHTML('beforeend', html);
+  return TitleBlock;
+}(Block);
+
+exports.TitleBlock = TitleBlock;
+
+var TextBlock = /*#__PURE__*/function (_Block2) {
+  _inherits(TextBlock, _Block2);
+
+  var _super2 = _createSuper(TextBlock);
+
+  function TextBlock(value, options) {
+    _classCallCheck(this, TextBlock);
+
+    return _super2.call(this, 'text', value, options);
+  }
+
+  return TextBlock;
+}(Block);
+
+exports.TextBlock = TextBlock;
+},{}],"assets/profile.jpg":[function(require,module,exports) {
+module.exports = "/profile.0a62ebc3.jpg";
+},{}],"model.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+exports.sections = void 0;
+
+var _blocks = require("./classes/blocks");
+
+var _profile = _interopRequireDefault(require("./assets/profile.jpg"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var loremText = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia excepturi commodi impedit, possimus nulla vitae et ex. Quam nisi minima cum natus rem esse voluptatum laborum eveniet sequi. Quo, quibusdam.';
+var sections = [new _blocks.TitleBlock('Hello world!'), new _blocks.TextBlock(loremText), new _blocks.Block('columns', [loremText, loremText, loremText]), new _blocks.Block('image', _profile.default)];
+exports.sections = sections;
+},{"./classes/blocks":"classes/blocks.js","./assets/profile.jpg":"assets/profile.jpg"}],"templates.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.templates = void 0;
+
+function row(content) {
+  return "<section class=\"row\">".concat(content, "</section>");
+}
+
+function col(content) {
+  return "<div class=\"col-sm\">".concat(content, "</div>");
+}
 
 function title(section) {
-  return "\n    <section class=\"row\">\n        <div class=\"col-sm\">\n            <h2>".concat(section.value, "</h2>\n        </div>\n    </section>\n");
+  return row(col("<h2>".concat(section.value, "</h2>")));
 }
 
 function text(section) {
-  return "\n    <section class=\"row\">\n        <div class=\"col-sm\">\n            <p>".concat(section.value, "</p>\n        </div>\n    </section>\n    ");
+  return row(col("<p>".concat(section.value, "</p>")));
 }
 
 function columns(section) {
   var html = section.value.map(function (item) {
-    return "<div class=\"col-sm\"><p>".concat(item, "</p></div>");
+    return col("<p>".concat(item, "</p>"));
   });
-  console.log(html);
-  return "\n    <section class=\"row\">\n        ".concat(html.join(''), "\n    </section>\n    ");
+  return row(html.join(''));
 }
-},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+function image(section) {
+  return row(col("<img src=\"".concat(section.value, "\" />")));
+}
+
+var templates = {
+  title: title,
+  text: text,
+  columns: columns,
+  image: image
+};
+exports.templates = templates;
+},{}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"styles/main.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
+"use strict";
+
+var _model = require("./model");
+
+var _templates = require("./templates");
+
+require("./styles/main.css");
+
+var $content = document.querySelector('#cv');
+
+_model.sections.forEach(function (section) {
+  var template = _templates.templates[section.type];
+  var html = template(section);
+  $content.insertAdjacentHTML('beforeend', html);
+}); //ПРИМЕР ТОГО, КАК ДОБАВИТЬ ТЕКСТ В КОНЕЦ ЭЛЕМЕНТА main
+// sections.forEach(section => {
+//     let html = '<h2>Hello from JS</h2>';
+//     $content.insertAdjacentHTML('beforeend', html)
+// })
+},{"./model":"model.js","./templates":"templates.js","./styles/main.css":"styles/main.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -192,7 +365,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50135" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52424" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
