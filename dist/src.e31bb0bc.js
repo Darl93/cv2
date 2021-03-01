@@ -392,34 +392,54 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"classes/app.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Application = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Application = /*#__PURE__*/function () {
+  function Application(selector) {
+    _classCallCheck(this, Application);
+
+    this.$content = document.querySelector(selector);
+  }
+
+  _createClass(Application, [{
+    key: "render",
+    value: function render(sections) {
+      var _this = this;
+
+      sections.forEach(function (section) {
+        _this.$content.insertAdjacentHTML('beforeend', section.toHTML());
+      });
+    }
+  }]);
+
+  return Application;
+}();
+
+exports.Application = Application;
+},{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _model = require("./model");
 
 require("./styles/main.css");
 
-var $content = document.querySelector('#cv'); // sections.forEach(section => {
-//     const template = templates[section.type];
-//     const html = template(section);
-//     $content.insertAdjacentHTML('beforeend', html)
-// });
-//ПРИМЕР ТОГО, КАК ДОБАВИТЬ ТЕКСТ В КОНЕЦ ЭЛЕМЕНТА main
-// sections.forEach(section => {
-//     let html = '<h2>Hello from JS</h2>';
-//     $content.insertAdjacentHTML('beforeend', html)
-// })
+var _app = require("./classes/app");
 
-/**
- * Шаг 4
- * Расскоментировать новую реализацию рендера секций
- * Код выше можно удалить
- */
-
-_model.sections.forEach(function (section) {
-  $content.insertAdjacentHTML('beforeend', section.toHTML());
-});
-},{"./model":"model.js","./styles/main.css":"styles/main.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var app = new _app.Application('#cv');
+app.render(_model.sections);
+},{"./model":"model.js","./styles/main.css":"styles/main.css","./classes/app":"classes/app.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
