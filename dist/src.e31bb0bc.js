@@ -117,13 +117,31 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"classes/blocks.js":[function(require,module,exports) {
+})({"templates.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.row = row;
+exports.col = col;
+
+function row(content) {
+  return "<section class=\"row\">".concat(content, "</section>");
+}
+
+function col(content) {
+  return "<div class=\"col-sm\">".concat(content, "</div>");
+}
+},{}],"classes/blocks.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.ImageBlock = exports.ColumnsBlock = exports.TextBlock = exports.TitleBlock = exports.Block = void 0;
+
+var _templates = require("../templates");
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -201,7 +219,7 @@ var TitleBlock = /*#__PURE__*/function (_Block) {
   _createClass(TitleBlock, [{
     key: "toHTML",
     value: function toHTML() {
-      return "<div>title</>";
+      return (0, _templates.row)((0, _templates.col)("<h2>".concat(this.value, "</h2>")));
     }
   }]);
 
@@ -224,7 +242,7 @@ var TextBlock = /*#__PURE__*/function (_Block2) {
   _createClass(TextBlock, [{
     key: "toHTML",
     value: function toHTML() {
-      return "<div>text</>";
+      return (0, _templates.row)((0, _templates.col)("<p>".concat(this.value, "</p>")));
     }
   }]);
 
@@ -247,7 +265,10 @@ var ColumnsBlock = /*#__PURE__*/function (_Block3) {
   _createClass(ColumnsBlock, [{
     key: "toHTML",
     value: function toHTML() {
-      return "<div>columns</>";
+      var html = this.value.map(function (item) {
+        return (0, _templates.col)("<p>".concat(item, "</p>"));
+      });
+      return (0, _templates.row)(html.join(''));
     }
   }]);
 
@@ -267,11 +288,18 @@ var ImageBlock = /*#__PURE__*/function (_Block4) {
     return _super4.call(this, 'image', value, options);
   }
 
+  _createClass(ImageBlock, [{
+    key: "toHTML",
+    value: function toHTML() {
+      return (0, _templates.row)((0, _templates.col)("<img src=\"".concat(this.value, "\" />")));
+    }
+  }]);
+
   return ImageBlock;
 }(Block);
 
 exports.ImageBlock = ImageBlock;
-},{}],"assets/profile.jpg":[function(require,module,exports) {
+},{"../templates":"templates.js"}],"assets/profile.jpg":[function(require,module,exports) {
 module.exports = "/profile.0a62ebc3.jpg";
 },{}],"model.js":[function(require,module,exports) {
 "use strict";
@@ -292,49 +320,7 @@ var title = new _blocks.TitleBlock('second one');
 console.log(title.toHTML());
 var sections = [new _blocks.TitleBlock('Hello world!'), new _blocks.TextBlock(loremText), new _blocks.ColumnsBlock([loremText, loremText, loremText]), new _blocks.ImageBlock(_profile.default)];
 exports.sections = sections;
-},{"./classes/blocks":"classes/blocks.js","./assets/profile.jpg":"assets/profile.jpg"}],"templates.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.templates = void 0;
-
-function row(content) {
-  return "<section class=\"row\">".concat(content, "</section>");
-}
-
-function col(content) {
-  return "<div class=\"col-sm\">".concat(content, "</div>");
-}
-
-function title(section) {
-  return row(col("<h2>".concat(section.value, "</h2>")));
-}
-
-function text(section) {
-  return row(col("<p>".concat(section.value, "</p>")));
-}
-
-function columns(section) {
-  var html = section.value.map(function (item) {
-    return col("<p>".concat(item, "</p>"));
-  });
-  return row(html.join(''));
-}
-
-function image(section) {
-  return row(col("<img src=\"".concat(section.value, "\" />")));
-}
-
-var templates = {
-  title: title,
-  text: text,
-  columns: columns,
-  image: image
-};
-exports.templates = templates;
-},{}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"./classes/blocks":"classes/blocks.js","./assets/profile.jpg":"assets/profile.jpg"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -411,8 +397,6 @@ module.hot.accept(reloadCSS);
 
 var _model = require("./model");
 
-var _templates = require("./templates");
-
 require("./styles/main.css");
 
 var $content = document.querySelector('#cv'); // sections.forEach(section => {
@@ -435,7 +419,7 @@ var $content = document.querySelector('#cv'); // sections.forEach(section => {
 _model.sections.forEach(function (section) {
   $content.insertAdjacentHTML('beforeend', section.toHTML());
 });
-},{"./model":"model.js","./templates":"templates.js","./styles/main.css":"styles/main.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./model":"model.js","./styles/main.css":"styles/main.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
