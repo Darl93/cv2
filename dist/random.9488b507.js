@@ -147,6 +147,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 //         console.log('Say Hi');
 //     },
 // };
+//ДОБАВИТЬ СВОЙСТВО ОБЪЕНТА
+//person.isAdmin = true;
+//УДАЛСТЬ СВО-ВЛ ОБЪЕКТА
+//delete person.age
+//Объект, объявленный через const, может быть изменён. Объявление const защищает от изменений только саму переменную person, а не её содержимое.
+// let user = {
+//     name: "John",
+//     age: 30,
+//     "likes birds": true  // имя свойства из нескольких слов должно быть в кавычках
+//   };
+var user = {}; // присваивание значения свойству
+
+user["likes birds"] = true; // получение значения свойства
+
+alert(user["likes birds"]); // true
+// удаление свойства
+
+delete user["likes birds"]; // let user = {
+//     name: "John",
+//     age: 30
+//   };
+//   let key = prompt("Что вы хотите узнать о пользователе?", "name");
+//   // доступ к свойству через переменную
+//   alert( user[key] ); // John (если ввели "name")
 //ПЕРЕД ТЕМ КАК ВЫЗВАТЬ МЕТОД JS БРАУЗЕР ИЩЕТ ЕГО В КОДЕ И ЕСЛИ ЕГО ТАМ НЕТ ИЩЕТ В ПРОТОТИПЕ
 //Object.prototype.sayHello = function() { //СОЗДАЕМ Ф-ЦИЮ В ПРОТОТИПЕ ОБЬЕКТА OBJECT
 //     console.log('Hello') 
@@ -155,6 +179,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 // console.log(victor); //ТЕПЕРЬ ПЕРЕМЕННАЯ ВИКТОР СОДЕРЖИТ ЕШЕ ОДИН ПРОТОТИП СО СВОЙСТВАМИ ПЕРЕМЕННОЙ PERSON, {name: "Ihar", age: 30, sayHi: function, sayHello: function}
 //const ihar = {}; классич сп-б созд обънт
 //OBJECT.CREATE - создание объкта
+
 var person2 = Object.create({}, {
   name: {
     value: 'Ihar',
@@ -289,7 +314,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52424" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49400" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -123,7 +123,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TextBlock = exports.TitleBlock = exports.Block = void 0;
+exports.ImageBlock = exports.ColumnsBlock = exports.TextBlock = exports.TitleBlock = exports.Block = void 0;
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -143,13 +143,40 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Block = function Block(type, value, options) {
-  _classCallCheck(this, Block);
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  this.type = type;
-  this.value = value;
-  this.options = options;
-};
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Block = /*#__PURE__*/function () {
+  function Block(type, value, options) {
+    _classCallCheck(this, Block);
+
+    this.type = type;
+    this.value = value;
+    this.options = options;
+  }
+  /*
+  @TODO шаг 1 - создать классы ColumnsBlock и ImageBlock
+  добавить их в model.js
+  */
+
+  /**
+   * Шаг 2
+   * Раскомментировать метод toHTML у класса Block.
+   * По умолчанию, этот метод будет возвращать ошибку.
+   * Вам нужно переопределить этот метод в каждом классе потомке.
+   */
+
+
+  _createClass(Block, [{
+    key: "toHTML",
+    value: function toHTML() {
+      return 'parent'; // throw new Error('toHTML method was not implemented');
+    }
+  }]);
+
+  return Block;
+}();
 
 exports.Block = Block;
 
@@ -163,6 +190,20 @@ var TitleBlock = /*#__PURE__*/function (_Block) {
 
     return _super.call(this, 'title', value, options);
   }
+  /**
+   * Шаг 3
+   * Это пример переопределения toHTML
+   * Перенесите сюда код из соответствующий ф-ции в template.js (ф-цию в templates.js можно убрать)
+   * доступ к полю value можно получить с помощью this.value
+   */
+
+
+  _createClass(TitleBlock, [{
+    key: "toHTML",
+    value: function toHTML() {
+      return "<div>title</>";
+    }
+  }]);
 
   return TitleBlock;
 }(Block);
@@ -180,10 +221,56 @@ var TextBlock = /*#__PURE__*/function (_Block2) {
     return _super2.call(this, 'text', value, options);
   }
 
+  _createClass(TextBlock, [{
+    key: "toHTML",
+    value: function toHTML() {
+      return "<div>text</>";
+    }
+  }]);
+
   return TextBlock;
 }(Block);
 
 exports.TextBlock = TextBlock;
+
+var ColumnsBlock = /*#__PURE__*/function (_Block3) {
+  _inherits(ColumnsBlock, _Block3);
+
+  var _super3 = _createSuper(ColumnsBlock);
+
+  function ColumnsBlock(value, options) {
+    _classCallCheck(this, ColumnsBlock);
+
+    return _super3.call(this, 'columns', value, options);
+  }
+
+  _createClass(ColumnsBlock, [{
+    key: "toHTML",
+    value: function toHTML() {
+      return "<div>columns</>";
+    }
+  }]);
+
+  return ColumnsBlock;
+}(Block);
+
+exports.ColumnsBlock = ColumnsBlock;
+
+var ImageBlock = /*#__PURE__*/function (_Block4) {
+  _inherits(ImageBlock, _Block4);
+
+  var _super4 = _createSuper(ImageBlock);
+
+  function ImageBlock(value, options) {
+    _classCallCheck(this, ImageBlock);
+
+    return _super4.call(this, 'image', value, options);
+  }
+
+  return ImageBlock;
+}(Block);
+
+exports.ImageBlock = ImageBlock;
 },{}],"assets/profile.jpg":[function(require,module,exports) {
 module.exports = "/profile.0a62ebc3.jpg";
 },{}],"model.js":[function(require,module,exports) {
@@ -201,7 +288,9 @@ var _profile = _interopRequireDefault(require("./assets/profile.jpg"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var loremText = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia excepturi commodi impedit, possimus nulla vitae et ex. Quam nisi minima cum natus rem esse voluptatum laborum eveniet sequi. Quo, quibusdam.';
-var sections = [new _blocks.TitleBlock('Hello world!'), new _blocks.TextBlock(loremText), new _blocks.Block('columns', [loremText, loremText, loremText]), new _blocks.Block('image', _profile.default)];
+var title = new _blocks.TitleBlock('second one');
+console.log(title.toHTML());
+var sections = [new _blocks.TitleBlock('Hello world!'), new _blocks.TextBlock(loremText), new _blocks.ColumnsBlock([loremText, loremText, loremText]), new _blocks.ImageBlock(_profile.default)];
 exports.sections = sections;
 },{"./classes/blocks":"classes/blocks.js","./assets/profile.jpg":"assets/profile.jpg"}],"templates.js":[function(require,module,exports) {
 "use strict";
@@ -326,17 +415,26 @@ var _templates = require("./templates");
 
 require("./styles/main.css");
 
-var $content = document.querySelector('#cv');
-
-_model.sections.forEach(function (section) {
-  var template = _templates.templates[section.type];
-  var html = template(section);
-  $content.insertAdjacentHTML('beforeend', html);
-}); //ПРИМЕР ТОГО, КАК ДОБАВИТЬ ТЕКСТ В КОНЕЦ ЭЛЕМЕНТА main
+var $content = document.querySelector('#cv'); // sections.forEach(section => {
+//     const template = templates[section.type];
+//     const html = template(section);
+//     $content.insertAdjacentHTML('beforeend', html)
+// });
+//ПРИМЕР ТОГО, КАК ДОБАВИТЬ ТЕКСТ В КОНЕЦ ЭЛЕМЕНТА main
 // sections.forEach(section => {
 //     let html = '<h2>Hello from JS</h2>';
 //     $content.insertAdjacentHTML('beforeend', html)
 // })
+
+/**
+ * Шаг 4
+ * Расскоментировать новую реализацию рендера секций
+ * Код выше можно удалить
+ */
+
+_model.sections.forEach(function (section) {
+  $content.insertAdjacentHTML('beforeend', section.toHTML());
+});
 },{"./model":"model.js","./templates":"templates.js","./styles/main.css":"styles/main.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -365,7 +463,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52424" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49400" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
