@@ -1,5 +1,5 @@
 import { sections } from './model';
-import './styles/main.css';
+import './styles/main.scss';
 import { Application } from './classes/app';
 
 
